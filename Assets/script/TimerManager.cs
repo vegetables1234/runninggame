@@ -59,7 +59,6 @@ public class TimerManager : MonoBehaviour
 
     void TimerCalculation()
     {
-
         timer += Time.deltaTime;        //every frame adds time
         timerCount = timer;
         seconds = (int)(timer % 60);
