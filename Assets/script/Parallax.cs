@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour       //this was used to create the parallax background effect
+/*adapted from Dani's Unity Parallax Tutorial
+on the 2/07/20, from https://www.youtube.com/watch?v=zit45k6CUMk
+*/
 
 {
     private float length, startpos;

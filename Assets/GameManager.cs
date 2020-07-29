@@ -16,7 +16,11 @@ public class GameManager : MonoBehaviour
     public DeathMenu theDeathScreen;
 
 
-
+    /* this module is adapted from gamesplusjames from https://www.youtube.com/watch?v=d06ljVEAd78&t=1s
+     * on the 8/07/20 
+     * The main difference lies in the fact that this programmer used an index to restart his game 
+     * whereas I simply deactivate the entire scene to use minimal code
+     */
     // Start is called before the first frame update
     void Start()
     {
@@ -35,8 +39,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()   //calls the Coroutine RestartGameCo
     {
         timeManager.timerIncreasing = false;
-        thePlayer.gameObject.SetActive(false);
-        //StartCoroutine("RestartGameCo");
+        thePlayer.gameObject.SetActive(false);          //I changed this to suit my code - c
 
         theDeathScreen.gameObject.SetActive(true);
 

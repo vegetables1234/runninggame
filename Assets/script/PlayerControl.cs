@@ -51,9 +51,12 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody = GetComponent<Rigidbody2D>();
+        myRigidBody = GetComponent<Rigidbody2D>();      
         myCollider = GetComponent<Collider2D>();        //searches for collider in Unity   
 
+        /*These previous two variables were adapted from gamesplusjames' code
+         * on  the 2/07/20 from https://www.youtube.com/watch?v=flGbKSSUY0o
+        */
 
         jumptTimeCounter = jumpTime;        //used for jumping only once
 
@@ -64,6 +67,9 @@ public class PlayerControl : MonoBehaviour
 
         speedMilestoneCount = speedIncreaseMilestone;
 
+
+        /* this part is apart of the restart system  --> adapted from gamesplusjames (8/07/20) --> line 19 on Gamemanager
+         */
         moveSpeedStore = moveSpeed;                 //used to reset speed once player has died
         speedMilestoneCountStore = speedMilestoneCount;
         speedIncreaseMilestoneStore = speedIncreaseMilestone;
@@ -80,15 +86,19 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //grounded = Physics2D.IsTouchingLayers(myCollider, whatIsGround);                //checks if collider is touching any other object (boolean value) - used for allowing player to jump only once
-        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-
+        
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround); //checks if collider is touching any other object (boolean value) - used for allowing player to jump only once
+        /*this grounded statement was also derived from gamesplusjame (look at line 93 to 96)
+         */
         newBoxLocation.x = this.transform.position.x+7;               //used to create new platforms and where to place them
         newBoxLocation.y = (Random.Range(-3, 1));
 
+        /* This next section of code is derived from gameplusjames from 
+         * https://www.youtube.com/watch?v=5QgQCaEdSV4&list=PLiyfvmtjWC_XmdYfXm2i1AQ3lKrEPgc9-&index=10
+         * on the 8th July 2020
+        */
 
-
-        if(transform.position.x > speedMilestoneCount)      //checks if the distance of the player is greater than the distance milestone
+        if (transform.position.x > speedMilestoneCount)      //checks if the distance of the player is greater than the distance milestone
         {
             speedMilestoneCount += speedIncreaseMilestone;          //then increases count
 
@@ -98,6 +108,12 @@ public class PlayerControl : MonoBehaviour
         }
 
         myRigidBody.velocity = new Vector2(moveSpeed, myRigidBody.velocity.y);          //speed of the player
+
+
+        /* The next few lines of code (the ones that adjust the jump) have been adapted from gamesplusjames (4/07/20) from 
+         *  https://www.youtube.com/watch?v=DCncsRU045M&t=2s 
+         * it is also important to note that the jumpTime, grounded and jumpTimecounter were also made by this user
+         */
 
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))             //when the player presses down space, the player will jump
@@ -116,6 +132,8 @@ public class PlayerControl : MonoBehaviour
             jumptTimeCounter = jumpTime;
         }
 
+
+        //retrieved from gamesplusjames from 10/7/20 from https://www.youtube.com/watch?v=N0T7vwGL4Qg&list=PLiyfvmtjWC_XmdYfXm2i1AQ3lKrEPgc9-&index=15
 
         if ((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && !stoppedJumping)             //timer for when player holds down space button + adjusts height of jump in accordance to how long the player presses down the space button
         {
@@ -183,7 +201,7 @@ public class PlayerControl : MonoBehaviour
         {
             Instantiate(cube, newBoxLocation, gameObject.transform.rotation);
             if (stopNewGround == true) yield break;              
-            yield return new WaitForSeconds(Random.Range(0.5f, 1.6f));
+            yield return new WaitForSeconds(Random.Range(0.7f, 1.5f));
             //waitTime
         }
 

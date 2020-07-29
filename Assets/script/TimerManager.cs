@@ -15,13 +15,10 @@ public class TimerManager : MonoBehaviour
     public float timer;
     public float seconds;
     public float minutes;
-    public float hours;
-
-    public float pointsPerSecond;
+    
 
     public bool timerIncreasing;
 
-  
 
     
 
@@ -41,7 +38,9 @@ public class TimerManager : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void Update()       //adpated 10/07/20 from gamesplusjames (but has been adjusted to suit a timer rather than a point system)
+                        /* from https://www.youtube.com/watch?v=9HvTwtfBaYM&list=PLiyfvmtjWC_XmdYfXm2i1AQ3lKrEPgc9-&index=12
+                         */
     {
         if (timerIncreasing)
         {
@@ -56,6 +55,9 @@ public class TimerManager : MonoBehaviour
         }     
 
     }
+
+    /* TimerCalculation and BestTimeStore() adapted from VoiiDz Gamnig from https://www.youtube.com/watch?v=T1HBdQSEM-4
+    */
 
     void TimerCalculation()
     {
@@ -81,11 +83,12 @@ public class TimerManager : MonoBehaviour
     public void SaveHighScore(float bestTime)
     {
         string fileName = "HighScore.txt";
-        File.WriteAllText(fileName, bestTime.ToString());
+        System.IO.File.WriteAllText(fileName, bestTime.ToString());                //get rid of count
     }
 
     public string ReadHighScore()
     {
+        Resources.Load("HighScore.txt");
         string fileName = "HighScore.txt";
         return File.ReadAllText(fileName);
     }
